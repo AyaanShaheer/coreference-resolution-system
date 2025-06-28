@@ -1,4 +1,9 @@
-echo "venv/" >> .gitignore
-echo "__pycache__/" >> .gitignore
-echo "*.pyc" >> .gitignore
-echo "*.db" >> .gitignore
+venv/
+__pycache__/
+*.pyc
+*.pkl
+*.pt
+*.model
+*.lib
+*.dll
+**/en_core_web_lg
