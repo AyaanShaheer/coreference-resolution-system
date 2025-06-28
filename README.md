@@ -1,6 +1,3 @@
-Understood. Here's a clean `README.md` for your **Coreference Resolution System** project, excluding any Docker or Jenkins mentions:
-
----
 
 ### 📘 **README.md**
 
