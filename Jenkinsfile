@@ -3,39 +3,30 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'coref-app'
-        CONTAINER_NAME = 'coref-container'
-        PORT = '8000'
     }
 
     stages {
-        stage('Clone Repo') {
-            steps {
-                git branch: 'main', url: 'https://github.com/AyaanShaheer/coreference-resolution-system.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
-                script {
-                    echo "Building Docker image..."
-                    sh 'docker build -t $IMAGE_NAME .'
-                }
+                echo '🔨 Building Docker image...'
+                sh 'docker build -t $IMAGE_NAME .'
             }
         }
 
-        stage('Run Container') {
+        stage('Run Docker Container') {
             steps {
-                script {
-                    echo "Stopping existing container (if running)..."
-                    sh '''
-                        docker stop $CONTAINER_NAME || true
-                        docker rm $CONTAINER_NAME || true
-                    '''
-
-                    echo "Running Docker container..."
-                    sh 'docker run -d -p $PORT:8000 --name $CONTAINER_NAME $IMAGE_NAME'
-                }
+                echo '🚀 Running Docker container...'
+                sh 'docker run -d --rm -p 8501:8501 $IMAGE_NAME'
             }
+        }
+    }
+
+    post {
+        failure {
+            echo '❌ Build failed. Check logs above.'
+        }
+        success {
+            echo '✅ Build and container run successful.'
         }
     }
 }
